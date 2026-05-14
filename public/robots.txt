@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ioson.in/sitemap.xml
