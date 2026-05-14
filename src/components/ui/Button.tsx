@@ -1,11 +1,11 @@
 import { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
+import { motion, type HTMLMotionProps } from 'framer-motion';
 
 type ButtonVariant = 'primary' | 'ghost' | 'outline' | 'text';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'ref'> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   loading?: boolean;
@@ -51,7 +51,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', loading, icon, iconPosition = 'right', children, disabled, ...props }, ref) => {
     return (
       <motion.button
-        ref={ref as React.RefObject<HTMLButtonElement>}
+        ref={ref}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className={cn(

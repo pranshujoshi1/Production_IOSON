@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Activity, Bell, Radio, Cpu, FileText, Droplets } from 'lucide-react';
 import { CTABanner } from '@/components/sections/CTABanner';
 
-const fd = (d = 0) => ({ initial: { opacity: 0, y: 18 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-50px' }, transition: { delay: d, duration: 0.55, ease: [0.22,1,0.36,1] } });
+const fd = (d = 0) => ({ initial: { opacity: 0, y: 18 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-50px' }, transition: { delay: d, duration: 0.55, ease: [0.22,1,0.36,1] as const } });
 
 const features = [
   { Icon: Activity,  title: 'Multi-parameter water sensing',    desc: 'Continuous monitoring of pH, turbidity, TDS, temperature, and dissolved oxygen — simultaneously, from the same sensor node.' },
@@ -46,7 +46,7 @@ export default function Pramaan() {
           </motion.div>
 
           <div className="pramaan-hero">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, ease: [0.22,1,0.36,1] }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, ease: [0.22,1,0.36,1] as const }}>
               <div style={{ display: 'flex', gap: 8, marginBottom: 22, flexWrap: 'wrap', alignItems: 'center' }}>
                 <span style={{ padding: '3px 11px', borderRadius: 100, background: 'rgba(37,99,235,.07)', border: '1px solid rgba(37,99,235,.2)', fontSize: 10, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#2563EB' }}>IoT Water Monitoring</span>
                 <span className="tag-amber">In Development</span>
@@ -66,7 +66,7 @@ export default function Pramaan() {
               </div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.22, duration: 0.85, ease: [0.22,1,0.36,1] }} className="pramaan-visual">
+            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.22, duration: 0.85, ease: [0.22,1,0.36,1] as const }} className="pramaan-visual">
               <div style={{ background: '#FFFFFF', border: '1px solid rgba(0,0,0,.08)', borderRadius: 16, overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.08)', maxWidth: 320 }}>
                 <div style={{ padding: '11px 16px', background: '#FAFAFA', borderBottom: '1px solid rgba(0,0,0,.05)', display: 'flex', alignItems: 'center', gap: 8 }}>
                   <Droplets size={12} style={{ color: '#2563EB' }} aria-hidden="true"/>

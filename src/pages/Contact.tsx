@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { MapPin, Mail, ArrowRight } from 'lucide-react';
 
-const fd = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-40px' }, transition: { delay: d, duration: 0.52, ease: [0.22,1,0.36,1] } });
+const fd = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-40px' }, transition: { delay: d, duration: 0.52, ease: [0.22,1,0.36,1] as const } });
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
