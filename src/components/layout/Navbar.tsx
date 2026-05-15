@@ -5,19 +5,19 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
-  { label: 'Products',  href: '/products'  },
+  { label: 'Products', href: '/products' },
   { label: 'Solutions', href: '/solutions' },
-  { label: 'About',     href: '/about'     },
-  { label: 'Contact',   href: '/contact'   },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 /* ─────────────────────────────────────────────────────── */
 export function Navbar() {
-  const [scrolled,   setScrolled]   = useState(false);
-  const [overDark,   setOverDark]   = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [overDark, setOverDark] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
-  const rafRef   = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null);
 
   /* ── Scroll: pill shrink + dark-background detection ── */
   useEffect(() => {
@@ -27,28 +27,30 @@ export function Navbar() {
      * then compute its luminance. If luminance < 0.35 → dark section.
      */
     const isDarkUnderNav = (): boolean => {
-      const NAV_MID_Y = 44; // roughly center of the navbar pill
-      const midX      = window.innerWidth / 2;
-      const el        = document.elementFromPoint(midX, NAV_MID_Y);
+      // Use elementsFromPoint (plural) — returns ALL stacked elements front→back.
+      // This lets us skip the glass navbar pill (which sits at z-index 200
+      // and always wins elementFromPoint), and read the real page background.
+      const NAV_MID_Y = 44;
+      const midX = window.innerWidth / 2;
+      const elements = document.elementsFromPoint(midX, NAV_MID_Y);
 
-      let node: Element | null = el;
-      while (node && node !== document.documentElement) {
+      for (const node of elements) {
         const bg = getComputedStyle(node).backgroundColor;
-        // Skip transparent / none
-        if (!bg || bg === 'rgba(0, 0, 0, 0)' || bg === 'transparent') {
-          node = node.parentElement;
-          continue;
-        }
+        if (!bg || bg === 'rgba(0, 0, 0, 0)' || bg === 'transparent') continue;
+
         const nums = bg.match(/[\d.]+/g);
-        if (nums && nums.length >= 3) {
-          const r = parseFloat(nums[0]);
-          const g = parseFloat(nums[1]);
-          const b = parseFloat(nums[2]);
-          // Relative luminance (perceived brightness 0–1)
-          const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-          return lum < 0.35;
-        }
-        node = node.parentElement;
+        if (!nums || nums.length < 3) continue;
+
+        const r = parseFloat(nums[0]);
+        const g = parseFloat(nums[1]);
+        const b = parseFloat(nums[2]);
+        const a = nums.length >= 4 ? parseFloat(nums[3]) : 1;
+
+        // Skip near-transparent layers (glass pill, backdrop overlays, etc.)
+        if (a < 0.25) continue;
+
+        const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        return lum < 0.35;
       }
       return false;
     };
@@ -85,18 +87,21 @@ export function Navbar() {
   }, [mobileOpen]);
 
   /* ── Derived colour tokens (all with 0.35 s CSS transitions) ── */
+  // When the mobile menu is open the dark overlay sits behind the pill,
+  // so force logo + icon white to stay visible regardless of overDark.
+  const forcedLight = mobileOpen;
   const T = {
-    logo:      overDark ? '#FFFFFF'                  : '#0D0D0D',
-    link:      overDark ? 'rgba(255,255,255,0.70)'   : '#555555',
-    linkActive:overDark ? '#FFFFFF'                  : '#0D0D0D',
-    underline: overDark ? '#FFFFFF'                  : '#0D0D0D',
-    activeBg:  overDark ? 'rgba(255,255,255,0.12)'   : 'rgba(0,0,0,0.06)',
-    hoverBg:   overDark ? 'rgba(255,255,255,0.10)'   : 'rgba(0,0,0,0.045)',
-    hoverText: overDark ? '#FFFFFF'                  : '#0D0D0D',
-    ctaBg:     overDark ? '#FFFFFF'                  : '#0D0D0D',
-    ctaText:   overDark ? '#0D0D0D'                  : '#FFFFFF',
-    icon:      overDark ? '#FFFFFF'                  : '#0D0D0D',
-    trans:     'color 0.35s ease, background 0.35s ease, border-color 0.35s ease, opacity 0.35s ease',
+    logo: (forcedLight || overDark) ? '#FFFFFF' : '#0D0D0D',
+    link: overDark ? 'rgba(255,255,255,0.70)' : '#555555',
+    linkActive: overDark ? '#FFFFFF' : '#0D0D0D',
+    underline: overDark ? '#FFFFFF' : '#0D0D0D',
+    activeBg: overDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.06)',
+    hoverBg: overDark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.045)',
+    hoverText: overDark ? '#FFFFFF' : '#0D0D0D',
+    ctaBg: overDark ? '#FFFFFF' : '#0D0D0D',
+    ctaText: overDark ? '#0D0D0D' : '#FFFFFF',
+    icon: (forcedLight || overDark) ? '#FFFFFF' : '#0D0D0D',
+    trans: 'color 0.35s ease, background 0.35s ease, border-color 0.35s ease, opacity 0.35s ease',
   };
 
   return (
@@ -121,15 +126,15 @@ export function Navbar() {
         <div
           style={{
             pointerEvents: 'auto',
-            width:        scrolled ? 'clamp(520px, 58%, 860px)' : '100%',
-            height:       scrolled ? 52 : 'var(--nav-h)',
-            display:      'flex',
-            alignItems:   'center',
+            width: scrolled ? 'clamp(520px, 58%, 860px)' : '100%',
+            height: scrolled ? 52 : 'var(--nav-h)',
+            display: 'flex',
+            alignItems: 'center',
             borderRadius: scrolled ? 100 : 0,
-            background:   scrolled ? 'rgba(255,255,255,0.10)' : 'rgba(255,255,255,0.05)',
-            backdropFilter:       scrolled ? 'blur(24px) saturate(180%)' : 'blur(8px)',
+            background: scrolled ? 'rgba(255,255,255,0.10)' : 'rgba(255,255,255,0.05)',
+            backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'blur(8px)',
             WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(200%)' : 'blur(8px)',
-            border:    scrolled ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.05)',
+            border: scrolled ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.05)',
             boxShadow: scrolled ? '0 8px 30px rgba(0,0,0,0.10), 0 1px 0 rgba(255,255,255,0.7) inset' : 'none',
             transition: [
               'width 0.45s cubic-bezier(0.4,0,0.2,1)',
@@ -160,10 +165,10 @@ export function Navbar() {
               aria-label="IOSON — go to homepage"
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
-                fontSize:   scrolled ? 13.5 : 15,
+                fontSize: scrolled ? 13.5 : 15,
                 fontWeight: 800,
                 letterSpacing: '0.22em',
-                color:      T.logo,
+                color: T.logo,
                 textDecoration: 'none',
                 flexShrink: 0,
                 lineHeight: 1,
@@ -184,12 +189,12 @@ export function Navbar() {
                   key={link.href}
                   to={link.href}
                   style={({ isActive }) => ({
-                    position:   'relative',
-                    padding:    scrolled ? '5px 11px' : '6px 13px',
+                    position: 'relative',
+                    padding: scrolled ? '5px 11px' : '6px 13px',
                     borderRadius: 100,
-                    fontSize:   scrolled ? 13 : 13.5,
+                    fontSize: scrolled ? 13 : 13.5,
                     fontWeight: isActive ? 600 : 450,
-                    color:      isActive ? T.linkActive : T.link,
+                    color: isActive ? T.linkActive : T.link,
                     textDecoration: 'none',
                     letterSpacing: '-0.01em',
                     transition: `${T.trans}, padding 0.35s, font-size 0.35s`,
@@ -238,11 +243,11 @@ export function Navbar() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: 6,
-                  padding:    scrolled ? '6px 14px' : '7px 16px',
+                  padding: scrolled ? '6px 14px' : '7px 16px',
                   borderRadius: 100,
                   background: T.ctaBg,
-                  color:      T.ctaText,
-                  fontSize:   scrolled ? 12.5 : 13,
+                  color: T.ctaText,
+                  fontSize: scrolled ? 12.5 : 13,
                   fontWeight: 600,
                   letterSpacing: '-0.01em',
                   textDecoration: 'none',
@@ -250,7 +255,7 @@ export function Navbar() {
                   whiteSpace: 'nowrap',
                 }}
                 onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.opacity = '0.88'; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)';    e.currentTarget.style.opacity = '1'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.opacity = '1'; }}
               >
                 Our Products
               </Link>
@@ -265,7 +270,7 @@ export function Navbar() {
               style={{
                 background: 'none', border: 'none',
                 cursor: 'pointer', padding: 8,
-                color:   T.icon,
+                color: T.icon,
                 display: 'none',
                 alignItems: 'center', justifyContent: 'center',
                 flexShrink: 0, borderRadius: 100,
@@ -274,8 +279,8 @@ export function Navbar() {
             >
               <AnimatePresence mode="wait" initial={false}>
                 {mobileOpen
-                  ? <motion.span key="x"   initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90,  opacity: 0 }} transition={{ duration: 0.16 }}><X    size={20}/></motion.span>
-                  : <motion.span key="ham" initial={{ rotate:  90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.16 }}><Menu size={20}/></motion.span>
+                  ? <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.16 }}><X size={20} /></motion.span>
+                  : <motion.span key="ham" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.16 }}><Menu size={20} /></motion.span>
                 }
               </AnimatePresence>
             </button>
@@ -305,7 +310,7 @@ export function Navbar() {
               letterSpacing: '0.22em', color: 'rgba(255,255,255,0.3)',
               marginBottom: 44,
             }}>
-              IOSON
+
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
@@ -355,7 +360,7 @@ export function Navbar() {
                     width: 'fit-content',
                   }}
                 >
-                  Get in touch <ArrowRight size={14}/>
+                  Get in touch <ArrowRight size={14} />
                 </Link>
               </div>
             </motion.div>

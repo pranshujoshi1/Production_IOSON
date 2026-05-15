@@ -4,33 +4,33 @@ const cols = [
   {
     heading: 'Products',
     links: [
-      { label: 'Thalii',       href: '/products/thalii'  },
-      { label: 'Pramaan',      href: '/products/pramaan' },
-      { label: 'All Products', href: '/products'          },
+      { label: 'Thalii', href: '/products/thalii' },
+      { label: 'Pramaan', href: '/products/pramaan' },
+      { label: 'All Products', href: '/products' },
     ],
   },
   {
     heading: 'Solutions',
     links: [
-      { label: 'Water Monitoring',       href: '/solutions#monitoring' },
-      { label: 'Smart Automation',       href: '/solutions#automation' },
-      { label: 'Digital Infrastructure', href: '/solutions#software'   },
-      { label: 'IoT & Edge Computing',   href: '/solutions#iot'        },
+      { label: 'Water Monitoring', href: '/solutions#monitoring' },
+      { label: 'Smart Automation', href: '/solutions#automation' },
+      { label: 'Digital Infrastructure', href: '/solutions#software' },
+      { label: 'IoT & Edge Computing', href: '/solutions#iot' },
     ],
   },
   {
     heading: 'Company',
     links: [
-      { label: 'About',    href: '/about'    },
+      { label: 'About', href: '/about' },
       { label: 'Insights', href: '/insights' },
-      { label: 'Contact',  href: '/contact'  },
+      { label: 'Contact', href: '/contact' },
     ],
   },
   {
     heading: 'Legal',
     links: [
-      { label: 'Privacy Policy',   href: '/privacy' },
-      { label: 'Terms of Service', href: '/terms'   },
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Service', href: '/terms' },
     ],
   },
 ];
@@ -59,7 +59,7 @@ export function Footer() {
               </a>
             </div>
             <div style={{ fontSize: 12.5, color: '#444', lineHeight: 1.5 }}>
-              Vijay Nagar, Indore<br/>Madhya Pradesh, India
+              Vijay Nagar, Indore<br />Madhya Pradesh, India
             </div>
           </div>
 
@@ -96,10 +96,7 @@ export function Footer() {
           justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem',
         }}>
           <span style={{ fontSize: 12, color: '#444' }}>
-            &copy; {year} IOSON Technologies. All rights reserved.
-          </span>
-          <span style={{ fontSize: 12, color: '#444' }}>
-            Intelligent systems, engineered.
+            &copy; {year} IOSON. All rights reserved.
           </span>
         </div>
       </div>
