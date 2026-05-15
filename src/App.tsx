@@ -3,6 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import { HelmetProvider } from 'react-helmet-async';
 import { PageWrapper } from '@/components/layout/PageWrapper';
 import { ScrollToTop } from '@/components/layout/ScrollToTop';
+import { SplashScreen, useSplash } from '@/components/layout/SplashScreen';
 import Home from '@/pages/Home';
 import Solutions from '@/pages/Solutions';
 import Products from '@/pages/Products';
@@ -32,8 +33,13 @@ function NotFound() {
 }
 
 export default function App() {
+  const { showSplash, handleComplete } = useSplash();
+
   return (
     <HelmetProvider>
+      {/* ── Splash screen — once per page load ── */}
+      {showSplash && <SplashScreen onComplete={handleComplete} />}
+
       <BrowserRouter>
         <ScrollToTop />
         <AnimatePresence mode="wait">

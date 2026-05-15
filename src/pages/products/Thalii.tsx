@@ -4,21 +4,21 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, QrCode, Users, BarChart3, Layers, Smartphone, Shield, CheckCircle } from 'lucide-react';
 import { CTABanner } from '@/components/sections/CTABanner';
 
-const fd = (d = 0) => ({ initial: { opacity: 0, y: 18 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-50px' }, transition: { delay: d, duration: 0.55, ease: [0.22,1,0.36,1] as const } });
+const fd = (d = 0) => ({ initial: { opacity: 0, y: 18 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-50px' }, transition: { delay: d, duration: 0.55, ease: [0.22, 1, 0.36, 1] as const } });
 
 const features = [
-  { Icon: QrCode,     title: 'QR meal verification',         desc: 'One scan confirms the subscription, deducts the meal, and updates the balance. No manual registers. No counting. No disputes.' },
-  { Icon: Users,      title: 'Subscription management',       desc: 'Full customer profiles with subscription history, balance, and redemption patterns. Know who\'s active, who\'s expired, who\'s due.' },
-  { Icon: BarChart3,  title: 'Daily operational dashboard',   desc: 'Meals served, revenue, peak hours, and low-balance alerts — all visible in real time from any device.' },
-  { Icon: Layers,     title: 'Kitchen and counter workflow',  desc: 'Staff see the live queue. Prepare the right number of meals for the day, reduce waste, improve peak-hour service.' },
-  { Icon: Smartphone, title: 'Customer self-service portal',  desc: 'Customers can check balance, top up, and view their history on their phone — reducing counter queries.' },
-  { Icon: Shield,     title: 'Secure payments and audit log', desc: 'Every transaction is logged and timestamped. Disputes are resolved in seconds with a verifiable audit trail.' },
+  { Icon: QrCode, title: 'QR meal verification', desc: 'One scan confirms the subscription, deducts the meal, and updates the balance. No manual registers. No counting. No disputes.' },
+  { Icon: Users, title: 'Subscription management', desc: 'Full customer profiles with subscription history, balance, and redemption patterns. Know who\'s active, who\'s expired, who\'s due.' },
+  { Icon: BarChart3, title: 'Daily operational dashboard', desc: 'Meals served, revenue, peak hours, and low-balance alerts — all visible in real time from any device.' },
+  { Icon: Layers, title: 'Kitchen and counter workflow', desc: 'Staff see the live queue. Prepare the right number of meals for the day, reduce waste, improve peak-hour service.' },
+  { Icon: Smartphone, title: 'Customer self-service portal', desc: 'Customers can check balance, top up, and view their history on their phone — reducing counter queries.' },
+  { Icon: Shield, title: 'Secure payments and audit log', desc: 'Every transaction is logged and timestamped. Disputes are resolved in seconds with a verifiable audit trail.' },
 ];
 
 const workflow = [
-  { n: '01', title: 'Customer subscribes once',     body: 'Customer selects a meal plan, pays digitally, and receives their QR code instantly. Under two minutes, start to finish.' },
-  { n: '02', title: 'Daily QR scan at counter',     body: 'Staff scan the QR. System validates, marks meal redeemed, updates balance. The whole process takes under two seconds.' },
-  { n: '03', title: 'You see everything live',       body: 'Today\'s meal count, revenue, active subscribers, and alerts — visible in real time on your dashboard.' },
+  { n: '01', title: 'Customer subscribes once', body: 'Customer selects a meal plan, pays digitally, and receives their QR code instantly. Under two minutes, start to finish.' },
+  { n: '02', title: 'Daily QR scan at counter', body: 'Staff scan the QR. System validates, marks meal redeemed, updates balance. The whole process takes under two seconds.' },
+  { n: '03', title: 'You see everything live', body: 'Today\'s meal count, revenue, active subscribers, and alerts — visible in real time on your dashboard.' },
   { n: '04', title: 'Renewals handled automatically', body: 'The system sends reminders before subscriptions expire and flags lapsed customers. No chasing, no manual lists.' },
 ];
 
@@ -32,10 +32,10 @@ const useCases = [
 ];
 
 const results = [
-  ['0',     'Paper registers still needed'],
-  ['< 2s',  'Average QR scan time'],
-  ['80%',   'Reduction in manual tracking'],
-  ['100%',  'Payments tracked digitally'],
+  ['0', 'Paper registers still needed'],
+  ['< 2s', 'Average QR scan time'],
+  ['80%', 'Reduction in manual tracking'],
+  ['100%', 'Payments tracked digitally'],
 ];
 
 export default function Thalii() {
@@ -49,7 +49,7 @@ export default function Thalii() {
       <section style={{ background: '#FFFFFF', paddingTop: 'clamp(96px,14vw,128px)', paddingBottom: 'clamp(48px,7vw,80px)' }}>
         <div className="container-custom">
           <div className="thalii-hero-grid">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, ease: [0.22,1,0.36,1] as const }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] as const }}>
               <div style={{ display: 'flex', gap: 8, marginBottom: 22, flexWrap: 'wrap', alignItems: 'center' }}>
                 <span style={{ padding: '3px 11px', borderRadius: 100, background: 'rgba(37,99,235,.07)', border: '1px solid rgba(37,99,235,.2)', fontSize: 10, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#2563EB' }}>Meal Subscription Platform</span>
                 <span className="tag-green">Live</span>
@@ -60,21 +60,21 @@ export default function Thalii() {
                 Most canteens still track monthly subscribers in paper registers — and lose money to missed payments, miscounted meals, and disputes. Thalii fixes that with a simple QR scan at the counter.
               </p>
               <div style={{ display: 'flex', gap: '0.875rem', flexWrap: 'wrap' }}>
-                <Link to="/contact" className="btn-primary">Request a Demo <ArrowRight size={13} aria-hidden="true"/></Link>
+                <Link to="/contact" className="btn-primary">Request a Demo <ArrowRight size={13} aria-hidden="true" /></Link>
                 <Link to="/products" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '11px 18px', borderRadius: 7, border: '1px solid rgba(0,0,0,.1)', color: '#666', fontSize: 13, fontWeight: 600, textDecoration: 'none', transition: 'border-color .2s,color .2s' }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(0,0,0,.22)'; e.currentTarget.style.color = '#0D0D0D'; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(0,0,0,.1)'; e.currentTarget.style.color = '#666'; }}>
-                  <ArrowLeft size={12} aria-hidden="true"/> All Products
+                  <ArrowLeft size={12} aria-hidden="true" /> All Products
                 </Link>
               </div>
             </motion.div>
-            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.22, duration: 0.85, ease: [0.22,1,0.36,1] as const }} className="thalii-visual">
+            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.22, duration: 0.85, ease: [0.22, 1, 0.36, 1] as const }} className="thalii-visual">
               <div style={{ background: '#FFFFFF', border: '1px solid rgba(0,0,0,.08)', borderRadius: 16, overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.08)', maxWidth: 340 }}>
                 <div style={{ padding: '11px 16px', background: '#FAFAFA', borderBottom: '1px solid rgba(0,0,0,.05)', display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <QrCode size={12} style={{ color: '#2563EB' }} aria-hidden="true"/>
+                  <QrCode size={12} style={{ color: '#2563EB' }} aria-hidden="true" />
                   <span style={{ fontSize: 10.5, fontWeight: 600, color: '#404040' }}>Thalii — Live Session</span>
                   <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 4 }}>
-                    <span className="green-dot" aria-hidden="true"/>
+                    <span className="green-dot" aria-hidden="true" />
                     <span style={{ fontSize: 10, color: '#16A34A', fontWeight: 600 }}>Live</span>
                   </span>
                 </div>
@@ -85,7 +85,7 @@ export default function Thalii() {
                     <div style={{ fontSize: 12, color: '#666', marginTop: 2 }}>247 active subscribers</div>
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, background: 'rgba(0,0,0,.06)', borderRadius: 8, overflow: 'hidden', marginBottom: 14 }}>
-                    {[['₹18K','Revenue'],['12','Renewals'],['3','Low bal']].map(([v,l]) => (
+                    {[['₹18K', 'Revenue'], ['12', 'Renewals'], ['3', 'Low bal']].map(([v, l]) => (
                       <div key={l} style={{ background: '#fff', padding: '9px 4px', textAlign: 'center' }}>
                         <div style={{ fontSize: 12, fontWeight: 800, color: '#0D0D0D', fontFamily: "'Space Grotesk',sans-serif" }}>{v}</div>
                         <div style={{ fontSize: 9, color: '#888', marginTop: 1 }}>{l}</div>
@@ -122,7 +122,7 @@ export default function Thalii() {
             {features.map(({ Icon, title, desc }, i) => (
               <motion.div key={title} {...fd(i * 0.07)}>
                 <div style={{ padding: 'clamp(20px,3vw,28px)', borderTop: '1px solid rgba(0,0,0,.07)', height: '100%' }}>
-                  <div style={{ width: 34, height: 34, borderRadius: 8, background: 'rgba(37,99,235,.07)', border: '1px solid rgba(37,99,235,.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12, color: '#2563EB' }}><Icon size={15} aria-hidden="true"/></div>
+                  <div style={{ width: 34, height: 34, borderRadius: 8, background: 'rgba(37,99,235,.07)', border: '1px solid rgba(37,99,235,.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12, color: '#2563EB' }}><Icon size={15} aria-hidden="true" /></div>
                   <h3 style={{ fontSize: 13.5, fontWeight: 700, color: '#0D0D0D', marginBottom: 7, fontFamily: "'Space Grotesk',sans-serif" }}>{title}</h3>
                   <p style={{ fontSize: 13, color: '#404040', lineHeight: 1.74, margin: 0 }}>{desc}</p>
                 </div>
@@ -159,11 +159,15 @@ export default function Thalii() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 28 }}>
                 {useCases.map(uc => (
                   <div key={uc} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: '#404040' }}>
-                    <CheckCircle size={13} style={{ color: '#16A34A', flexShrink: 0 }} aria-hidden="true"/> {uc}
+                    <CheckCircle size={13} style={{ color: '#16A34A', flexShrink: 0 }} aria-hidden="true" /> {uc}
                   </div>
                 ))}
               </div>
-              <Link to="/contact" className="btn-primary">Talk to us about Thalii <ArrowRight size={13} aria-hidden="true"/></Link>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                <Link to="/contact" className="btn-primary">Talk to us about Thalii <ArrowRight size={13} aria-hidden="true" /></Link>
+                <Link to="https://thalii.iosonx.com/" className="btn-primary">Know More <ArrowRight size={13} aria-hidden="true" /></Link>
+              </div>
+
             </motion.div>
             <motion.div {...fd(0.12)}>
               <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#888', marginBottom: 16 }}>What Changes</div>
@@ -178,7 +182,7 @@ export default function Thalii() {
         </div>
       </section>
 
-      <CTABanner/>
+      <CTABanner />
 
       <style>{`
         .thalii-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem,5vw,5rem); align-items: center; }
