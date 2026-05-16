@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 
-const EASE_SPRING   = [0.22, 1, 0.36, 1] as unknown as Easing;
+// Fonts are preloaded in index.html — no @import needed here.
+const EASE_SPRING    = [0.22, 1, 0.36, 1] as unknown as Easing;
 const EASE_CINEMATIC = [0.76, 0, 0.24, 1] as unknown as Easing;
 
 /* ─────────────────────────────────────────────────────────
@@ -90,10 +91,6 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
             willChange: 'transform',
           }}
         >
-          {/* ── Google Fonts ── */}
-          <style>{`
-            @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Dancing+Script:wght@600;700&display=swap');
-          `}</style>
 
           {/* ── Soft edge vignette ── */}
           <div

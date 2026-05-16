@@ -66,18 +66,28 @@ export function ProcessSection() {
         .process-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 1px;
-          background: rgba(0,0,0,0.07);
+          border: 1px solid rgba(0,0,0,0.08);
           border-radius: 14px;
           overflow: hidden;
         }
         .process-step {
           background: #FFFFFF;
           padding: clamp(28px,4vw,44px) clamp(22px,3.5vw,40px);
+          border-right:  1px solid rgba(0,0,0,0.08);
+          border-bottom: 1px solid rgba(0,0,0,0.08);
         }
+        /* Last cell in each row — no right border */
+        .process-step:nth-child(2n) { border-right: none; }
+        /* Last row — no bottom border */
+        .process-step:nth-last-child(-n+2) { border-bottom: none; }
+
         @media (max-width: 640px) {
           .process-grid { grid-template-columns: 1fr; }
-          .process-step { border-radius: 0; }
+          /* In single column every cell can have right none */
+          .process-step { border-right: none; }
+          /* Restore bottom on all except the very last */
+          .process-step:nth-last-child(-n+2) { border-bottom: 1px solid rgba(0,0,0,0.08); }
+          .process-step:last-child           { border-bottom: none; }
         }
       `}</style>
     </section>

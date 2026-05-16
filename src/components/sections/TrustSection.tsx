@@ -112,37 +112,56 @@ export function TrustSection() {
       </div>
 
       <style>{`
+        /* ── Pillars: 3-col → 2-col → 1-col ── */
         .trust-pillars {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 1.25rem;
           margin-bottom: 1.5rem;
         }
+        @media (max-width: 900px) {
+          .trust-pillars { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 560px) {
+          .trust-pillars { grid-template-columns: 1fr; }
+        }
+
+        /* ── Testimonials: 2-col → 1-col ── */
         .trust-testimonials {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
           gap: 1.25rem;
-          margin-bottom: 3rem;
+          margin-bottom: 2.5rem;
         }
+        @media (max-width: 640px) {
+          .trust-testimonials { grid-template-columns: 1fr; }
+        }
+
+        /* ── Trust bar: 4-col → 2-col, border-based separators ── */
         .trust-bar {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 1px;
-          background: rgba(0,0,0,0.07);
+          border: 1px solid rgba(0,0,0,0.08);
           border-radius: 12px;
           overflow: hidden;
         }
         .trust-stat {
           background: #FFFFFF;
           padding: clamp(20px,3vw,30px) clamp(16px,2.5vw,28px);
+          border-right:  1px solid rgba(0,0,0,0.08);
+          border-bottom: 1px solid rgba(0,0,0,0.08);
         }
-        @media (max-width: 900px) {
-          .trust-pillars      { grid-template-columns: 1fr; }
-          .trust-testimonials { grid-template-columns: 1fr; }
-          .trust-bar          { grid-template-columns: repeat(2,1fr); }
-        }
-        @media (max-width: 560px) {
-          .trust-bar { grid-template-columns: repeat(2,1fr); }
+        /* 4-col: last in each row */
+        .trust-stat:nth-child(4n)         { border-right: none; }
+        /* 4-col: all items are in the only row */
+        .trust-stat:nth-last-child(-n+4)  { border-bottom: none; }
+
+        @media (max-width: 640px) {
+          .trust-bar { grid-template-columns: repeat(2, 1fr); }
+          /* Reset 4-col overrides */
+          .trust-stat                       { border-right: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08); }
+          .trust-stat:nth-child(2n)         { border-right: none; }
+          .trust-stat:nth-last-child(-n+2)  { border-bottom: none; }
         }
       `}</style>
     </section>

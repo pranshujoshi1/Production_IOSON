@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 
 const stats = [
-  { value: '99.98%', label: 'System uptime',    sub: 'Across all live deployments' },
-  { value: '<2s',    label: 'QR scan time',      sub: 'Meal redemption speed'       },
-  { value: '340+',   label: 'Active nodes',      sub: 'Sensor network size'         },
-  { value: '100%',   label: 'SLA delivered',     sub: 'Every quarter since launch'  },
+  { value: '99.98%', label: 'System uptime', sub: 'Across all live deployments' },
+  { value: '<2s', label: 'QR scan time', sub: 'Meal redemption speed' },
+  { value: '340+', label: 'Active nodes', sub: 'Sensor network size' },
+  { value: '100%', label: 'SLA delivered', sub: 'Every quarter since launch' },
 ];
 
 const fd = (delay = 0) => ({
@@ -39,19 +39,32 @@ export function StatsSection() {
         .stats-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 1px;
-          background: rgba(0,0,0,0.07);
+          border: 1px solid rgba(0,0,0,0.08);
+          border-radius: 12px;
+          overflow: hidden;
         }
         .stat-item {
           background: #FAFAFA;
           padding: clamp(28px,4vw,44px) clamp(20px,3vw,32px);
+          border-right:  1px solid rgba(0,0,0,0.08);
+          border-bottom: 1px solid rgba(0,0,0,0.08);
         }
+        /* Last cell in each row — no right border */
+        .stat-item:nth-child(4n)           { border-right: none; }
+        /* Last row — no bottom border (all 4 items = last row in 4-col) */
+        .stat-item:nth-last-child(-n+4)    { border-bottom: none; }
+
         @media (max-width: 768px) {
           .stats-grid { grid-template-columns: repeat(2, 1fr); }
+          /* Reset overrides from 4-col */
+          .stat-item                        { border-right: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08); }
+          .stat-item:nth-child(2n)          { border-right: none; }
+          .stat-item:nth-last-child(-n+2)   { border-bottom: none; }
         }
         @media (max-width: 400px) {
           .stats-grid { grid-template-columns: 1fr; }
-          .stat-item  { padding: 24px 0; background: transparent; border-bottom: 1px solid rgba(0,0,0,.07); }
+          .stat-item                        { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.08); padding: 24px clamp(20px,3vw,32px); }
+          .stat-item:last-child             { border-bottom: none; }
         }
       `}</style>
     </section>
