@@ -24,11 +24,11 @@ function GridBackground({
   interactionRadius = 220,
 }: GridBgProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef  = useRef({ x: -9999, y: -9999 });
+  const mouseRef = useRef({ x: -9999, y: -9999 });
   const pointsRef = useRef<Point[]>([]);
-  const rafRef    = useRef<number | null>(null);
-  const colsRef   = useRef(0);
-  const rowsRef   = useRef(0);
+  const rafRef = useRef<number | null>(null);
+  const colsRef = useRef(0);
+  const rowsRef = useRef(0);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -49,9 +49,9 @@ function GridBackground({
       if (!canvas || !ctx) return;
       const w = canvas.parentElement?.clientWidth || window.innerWidth;
       const h = canvas.parentElement?.clientHeight || window.innerHeight;
-      canvas.width  = w * dpr;
+      canvas.width = w * dpr;
       canvas.height = h * dpr;
-      canvas.style.width  = `${w}px`;
+      canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
       ctx.scale(dpr, dpr);
       const cols = Math.ceil(w / cellSize) + 2;
@@ -70,21 +70,21 @@ function GridBackground({
     }
     init();
 
-    const onMouseMove  = (e: MouseEvent) => {
+    const onMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
     };
     const onMouseLeave = () => { mouseRef.current = { x: -9999, y: -9999 }; };
-    const onTouchMove  = (e: TouchEvent) => {
+    const onTouchMove = (e: TouchEvent) => {
       if (e.touches.length > 0) {
         const rect = canvas.getBoundingClientRect();
         mouseRef.current = { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
       }
     };
     const parent = canvas.parentElement ?? document.body;
-    parent.addEventListener('mousemove',  onMouseMove  as EventListener);
+    parent.addEventListener('mousemove', onMouseMove as EventListener);
     parent.addEventListener('mouseleave', onMouseLeave as EventListener);
-    parent.addEventListener('touchmove',  onTouchMove  as EventListener, { passive: true });
+    parent.addEventListener('touchmove', onTouchMove as EventListener, { passive: true });
 
     const SPRING = 0.060, DAMPING = 0.87, IDLE_A = 0.20, IDLE_S = 0.00028;
     const CR = 99, CG = 102, CB = 241;
@@ -122,9 +122,9 @@ function GridBackground({
 
       if (active) {
         const grd = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, interactionRadius * 1.1);
-        grd.addColorStop(0,   `rgba(${CR},${CG},${CB},0.10)`);
-        grd.addColorStop(0.45,`rgba(${CR},${CG},${CB},0.05)`);
-        grd.addColorStop(1,   `rgba(${CR},${CG},${CB},0.00)`);
+        grd.addColorStop(0, `rgba(${CR},${CG},${CB},0.10)`);
+        grd.addColorStop(0.45, `rgba(${CR},${CG},${CB},0.05)`);
+        grd.addColorStop(1, `rgba(${CR},${CG},${CB},0.00)`);
         ctx.fillStyle = grd;
         ctx.fillRect(0, 0, w, h);
       }
@@ -178,9 +178,9 @@ function GridBackground({
     const onResize = () => init();
     window.addEventListener('resize', onResize, { passive: true });
     return () => {
-      parent.removeEventListener('mousemove',  onMouseMove  as EventListener);
+      parent.removeEventListener('mousemove', onMouseMove as EventListener);
       parent.removeEventListener('mouseleave', onMouseLeave as EventListener);
-      parent.removeEventListener('touchmove',  onTouchMove  as EventListener);
+      parent.removeEventListener('touchmove', onTouchMove as EventListener);
       window.removeEventListener('resize', onResize);
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
@@ -195,10 +195,10 @@ function GridBackground({
 
 /* ─── Cycling word ───────────────────────────────────── */
 const WORDS = [
-  { text: 'IoT Monitoring',    color: '#2563EB' },
-  { text: 'Smart Automation',  color: '#7C3AED' },
-  { text: 'QR Platforms',      color: '#16A34A' },
-  { text: 'Water Management',  color: '#0891B2' },
+  { text: 'IoT Monitoring', color: '#2563EB' },
+  { text: 'Smart Automation', color: '#7C3AED' },
+  { text: 'QR Platforms', color: '#16A34A' },
+  { text: 'Water Management', color: '#0891B2' },
   { text: 'Edge Intelligence', color: '#D97706' },
 ];
 
@@ -217,8 +217,8 @@ function RotatingWord() {
       <motion.span
         key={word.text}
         initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
-        animate={{ opacity: 1, y:  0, filter: 'blur(0px)' }}
-        exit={{    opacity: 0, y:-16, filter: 'blur(6px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        exit={{ opacity: 0, y: -16, filter: 'blur(6px)' }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
         style={{ display: 'block', color: word.color }}
       >
@@ -232,8 +232,8 @@ function RotatingWord() {
 /* ─── Animation helper ───────────────────────────────── */
 const EASE: Easing = [0.22, 1, 0.36, 1] as unknown as Easing;
 const fu = (d = 0) => ({
-  initial:    { opacity: 0, y: 20 },
-  animate:    { opacity: 1, y: 0  },
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
   transition: { delay: d, duration: 0.6, ease: EASE },
 });
 
@@ -279,12 +279,12 @@ export function Hero() {
         }}
       >
         {/* Eyebrow */}
-        <motion.div {...fu(0.08)} style={{ marginBottom: '1.75rem' }}>
+        {/* <motion.div {...fu(0.08)} style={{ marginBottom: '1.75rem' }}>
           <span className="tag-accent">
-            <span className="accent-dot" aria-hidden="true"/>
+            <span className="accent-dot" aria-hidden="true" />
             Intelligent Systems Engineering
           </span>
-        </motion.div>
+        </motion.div> */}
 
         {/* Headline */}
         <h1 style={{ margin: '0 0 1.5rem', padding: 0, maxWidth: 800 }}>
@@ -320,14 +320,14 @@ export function Hero() {
           justifyContent: 'center', marginBottom: '3rem',
         }}>
           <Link to="/products" className="btn-primary" aria-label="Explore IOSON products">
-            Explore Products <ArrowRight size={13} aria-hidden="true"/>
+            Explore Products <ArrowRight size={13} aria-hidden="true" />
           </Link>
           <Link to="/contact" className="btn-ghost" aria-label="Get in touch with IOSON">
             Contact Us
           </Link>
         </motion.div>
 
-        {/* Stats */}
+        {/* Stats
         <motion.div {...fu(0.74)} style={{
           display: 'flex', alignItems: 'center',
           gap: 'clamp(2rem, 5vw, 4rem)',
@@ -353,7 +353,7 @@ export function Hero() {
               <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '.1em', textTransform: 'uppercase', color: '#999' }}>{s.l}</div>
             </div>
           ))}
-        </motion.div>
+        </motion.div> */}
       </div>
 
       {/* Bottom fade */}
