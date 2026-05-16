@@ -37,10 +37,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <!-- Inter + Space Grotesk — subset weights only -->
+  <!--
+    All fonts in a single request — subset weights only.
+    Black Ops One + Dancing Script are used by the SplashScreen component.
+    Loading them here ensures they are preloaded before the JS bundle runs,
+    eliminating FOUT on the splash screen.
+  -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700;800&family=Black+Ops+One&family=Dancing+Script:wght@600;700&display=swap"
     rel="stylesheet" />
+
+  <!-- Open Graph image -->
+  <meta property="og:image" content="https://ioson.in/og-image.png" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:image" content="https://ioson.in/og-image.png" />
 
   <!-- Structured data — Organisation -->
   <script type="application/ld+json">
