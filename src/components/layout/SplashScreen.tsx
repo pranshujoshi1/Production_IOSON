@@ -6,10 +6,13 @@ const EASE_SPRING   = [0.22, 1, 0.36, 1] as unknown as Easing;
 const EASE_CINEMATIC = [0.76, 0, 0.24, 1] as unknown as Easing;
 
 /* ─────────────────────────────────────────────────────────
-   Module-level flag — resets on hard refresh (JS re-runs),
-   persists across SPA navigation (module stays in memory).
+   sessionStorage flag — survives page refreshes within the
+   same tab session. Clears only when the tab/browser closes.
+   This ensures splash plays ONCE per visit, not on refresh.
 ───────────────────────────────────────────────────────── */
-let _splashPlayed = false;
+const SPLASH_KEY = 'ioson_splash_played';
+const _splashPlayed = () => sessionStorage.getItem(SPLASH_KEY) === '1';
+const _markSplashPlayed = () => sessionStorage.setItem(SPLASH_KEY, '1');
 
 /* ── Framer-motion variants ───────────────────────────── */
 const letterVariants = {
@@ -181,12 +184,12 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
 
 /* ── Hook ──────────────────────────────────────────────── */
 export function useSplash() {
-  const [done, setDone] = useState(_splashPlayed);
+  const [done, setDone] = useState(_splashPlayed());
 
   const handleComplete = () => {
-    _splashPlayed = true;
+    _markSplashPlayed();
     setDone(true);
   };
 
-  return { done, handleComplete, showSplash: !_splashPlayed };
+  return { done, handleComplete, showSplash: !_splashPlayed() };
 }
